@@ -9,10 +9,6 @@ public class Redis1 {
         System.out.println("Hello world");
         Jedis jedis = new Jedis();
 
-        jedis.set("events/city/rome", "32,15,223,828");
-        String cachedResponse = jedis.get("events/city/rome");
-        System.out.println(cachedResponse);
-
         jedis.set("shivam", "keshri");
         String cachedResponse2 = jedis.get("shivam");
         System.out.println(cachedResponse2);
@@ -57,5 +53,19 @@ public class Redis1 {
         System.out.println(jedis.getClient());
         System.out.println(jedis.getDB());
 
+
+        //hash
+        jedis.hset("2793", "name", "Shivam Keshri");
+        jedis.hset("2793", "age", "23");
+        jedis.hset("2793", "course", "BE-CSE");
+
+        String name = jedis.hget("2793", "name");
+        System.out.println(name);
+
+        Map<String, String> fields = jedis.hgetAll("2793");
+        String job = fields.get("age");
+        System.out.println(job);
+        System.out.println(fields.get("course"));
     }
 }
+
