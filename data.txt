@@ -1,0 +1,28 @@
+Redis data
+NewJoinee  ->  hash
+{Paras=[Guglani, 20, BE- ECE, 1234], Shivam=[Keshri, 23, BE- CSE, 2793]}
+===========================
+shivam1  ->  list
+[my, name, is, Shivam, Keshri, my, name, is, Shivam, Keshri, my, name, is, Shivam, Keshri, my, name, is, Shivam, Keshri, my, name, is, Shivam, Keshri, my, name, is, Shivam, Keshri, my, name, is, Shivam, Keshri, my, name, is, Shivam, Keshri]
+===========================
+Shivam  ->  hash
+{name=Shivam, surname=Keshri, age=23, emp id=2793}
+===========================
+Tasks  ->  list
+[Divide, Multiply, Subtract, Add]
+===========================
+shivam  ->  string
+keshri
+===========================
+2793  ->  hash
+{name=Shivam Keshri, course=BE-CSE, age=23}
+===========================
+rpush1  ->  list
+[Keshri, is, my, Shivam, Keshri, is, my, Shivam, Keshri, is]
+===========================
+rpush3  ->  list
+[my, name, is, Shivam, Keshri, my, name, is, Shivam, Keshri]
+===========================
+taskQueue  ->  list
+[Divide, task4, Multiply, task3, Subtract, task2, two, Add, task1]
+===========================
