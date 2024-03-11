@@ -13,6 +13,7 @@ class RThread implements Runnable{
         thread.start();
     }
     public void run(){
+        System.out.println(Thread.currentThread().getName()+" Started to enqueue 1:");
         obj.enqueue();
     }
 }
@@ -30,7 +31,7 @@ class RedisEn1{
         while(true){
             a= cin.nextLine();
             js.rpush(key, a);
-            System.out.println(key+ " key Enqueued: "+ a );
+            System.out.println(key+ " key Enqueued: "+ a+" by thread "+ Thread.currentThread().getName() );
         }
     }
 }
@@ -38,8 +39,9 @@ public class ThreadEnqueue1 {
     public static void main(String[] args) {
         System.out.println("==============Enqueue 1================");
         String key= "thread";
-        RedisEn1 obj= new RedisEn1(key);
+//        RedisEn1 obj= new RedisEn1(key);
 
-        RThread robj= new RThread(obj);
+        RThread robj1= new RThread(new RedisEn1(key));
+        RThread robj2= new RThread(new RedisEn1(key));
     }
 }

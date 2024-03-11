@@ -11,6 +11,7 @@ class RThreadDequeue implements Runnable{
         thread.start();
     }
     public void run(){
+        System.out.println(Thread.currentThread().getName()+" Started to dequeue 1:");
         obj.dequeue1();
     }
 }
@@ -31,20 +32,19 @@ class RedisDe1 {
                     throw new RuntimeException(e);
                 }
             }else {
-                System.out.println(key + "  dequeued: " + a);
+                System.out.println(key + "  dequeued: " + a+" by thread "+ Thread.currentThread().getName() );
             }
         }
     }
-
-
 }
 public class ThreadDequeue1 {
     public static void main(String[] args) {
         System.out.println("==============Dequeue 1================");
         String key= "thread";
-        RedisDe1 obj= new RedisDe1(key);
+//        RedisDe1 obj= new RedisDe1(key);
 
-        RThreadDequeue robj= new RThreadDequeue(obj);
+        RThreadDequeue robj1= new RThreadDequeue(new RedisDe1(key));
+        RThreadDequeue robj2= new RThreadDequeue(new RedisDe1(key));
     }
 
 }
