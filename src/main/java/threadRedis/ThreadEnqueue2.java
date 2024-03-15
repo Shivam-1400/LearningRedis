@@ -2,14 +2,18 @@ package threadRedis;
 
 import redis.clients.jedis.Jedis;
 import java.util.Scanner;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 class RThread2 implements Runnable{
     RedisEn2 obj;
-    Thread thread;
+
     RThread2(RedisEn2 obj){
         this.obj= obj;
-        thread= new Thread(this);
-        thread.start();
+//        Thread.currentThread().setDaemon(true);
+//        thread= new Thread(this);
+//        thread.start();
     }
     public void run(){
         System.out.println(Thread.currentThread().getName()+" Started to enqueue 2:");
@@ -27,7 +31,7 @@ class RedisEn2{
         Scanner cin= new Scanner(System.in);
         System.out.println("Enter the integer values to enqueue: ");
         String a;
-        while(true){
+        for(;;){
             a= cin.nextLine();
             js.rpush(key, a);
             System.out.println(key+ " key Enqueued: "+ a +" by thread "+ Thread.currentThread().getName() );
@@ -40,7 +44,15 @@ public class ThreadEnqueue2 {
         String key= "thread";
 //        RedisEn2 obj= new RedisEn2(key);
 
-        RThread2 robj1= new RThread2(new RedisEn2(key));
-        RThread2 robj2= new RThread2(new RedisEn2(key));
+//        RThread2 robj1= new RThread2(new RedisEn2(key));
+//        RThread2 robj2= new RThread2(new RedisEn2(key));
+
+        int p= Runtime.getRuntime().availableProcessors();
+        System.out.println("Available processors: "+ p);
+
+//        Executors.newFixedThreadPool(p).submit(new RThread2(new RedisEn2(key)));
+        ExecutorService pool = Executors.newCachedThreadPool();
+        pool.submit(new RThread2(new RedisEn2(key)));
+
     }
 }

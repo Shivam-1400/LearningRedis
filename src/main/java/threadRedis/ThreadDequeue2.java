@@ -2,13 +2,15 @@ package threadRedis;
 
 import redis.clients.jedis.Jedis;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 class RThreadDequeue2 implements Runnable{
-    Thread thread;
+
     RedisDe2 obj;
     RThreadDequeue2(RedisDe2 obj){
         this.obj= obj;
-        thread= new Thread(this);
-        thread.start();
+
     }
     public void run(){
         System.out.println(Thread.currentThread().getName()+" Started to dequeue 2:");
@@ -46,8 +48,11 @@ public class ThreadDequeue2 {
 
 //        RedisDe1 obj= new RedisDe1(key);
 
-        RThreadDequeue2 robj1= new RThreadDequeue2(new RedisDe2(key));
-        RThreadDequeue2 robj2= new RThreadDequeue2(new RedisDe2(key));
+//        RThreadDequeue2 robj1= new RThreadDequeue2(new RedisDe2(key));
+//        RThreadDequeue2 robj2= new RThreadDequeue2(new RedisDe2(key));
+
+        ExecutorService pool= Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+        pool.submit(new RThreadDequeue2(new RedisDe2(key)));
     }
 
 }

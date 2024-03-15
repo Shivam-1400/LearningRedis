@@ -3,14 +3,14 @@ package threadRedis;
 
 import redis.clients.jedis.Jedis;
 import java.util.Scanner;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 class RThread implements Runnable{
     RedisEn1 obj;
-    Thread thread;
     RThread(RedisEn1 obj){
         this.obj= obj;
-        thread= new Thread(this);
-        thread.start();
     }
     public void run(){
         System.out.println(Thread.currentThread().getName()+" Started to enqueue 1:");
@@ -39,9 +39,10 @@ public class ThreadEnqueue1 {
     public static void main(String[] args) {
         System.out.println("==============Enqueue 1================");
         String key= "thread";
-//        RedisEn1 obj= new RedisEn1(key);
 
-        RThread robj1= new RThread(new RedisEn1(key));
-        RThread robj2= new RThread(new RedisEn1(key));
+        int p= Runtime.getRuntime().availableProcessors();
+        System.out.println("Available processors: "+ p);
+        ExecutorService pool= Executors.newFixedThreadPool(p);
+        pool.submit(new RThread(new RedisEn1(key)));
     }
 }
